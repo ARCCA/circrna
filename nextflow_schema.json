@@ -244,7 +244,7 @@
                     "description": "Reference adapter file supplied to BBDUK",
                     "deafult": "adapters.fa",
                     "help_text": "BBDUK provides Illumina Truseq and Nextera adapters sequences in FASTA format suitable for most adapter removal situations. The adapters.fa file is located at \"${projectDir}/bin/adapters.fa\" should the user wish to modify the file. \n\nMake sure to specify the absolute path to the 'adapters.fa' file if modified.",
-                    "default": "${projectDir}/bin/adapters.fa",
+                    "default": "/data/projects/ARCCA/circrna/bin/adapters.fa",
                     "pattern": "\\.(fa|fasta)$"
                 },
                 "k": {

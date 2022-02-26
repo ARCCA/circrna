@@ -690,7 +690,7 @@ process GENE_ANNOTATION{
 
     shell:
     '''
-    echo hello > ${gtf.baseName}.txt 
+    echo hello > !{gtf.baseName}.txt 
     '''
 }
 

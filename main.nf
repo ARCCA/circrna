@@ -482,6 +482,9 @@ process STAR_INDEX {
     wget "https://raw.githubusercontent.com/nf-core/test-datasets/circrna/reference/chrI.gtf"
     mv "chrI.gtf.1" "${gtf}"
 
+    wget "https://raw.githubusercontent.com/nf-core/test-datasets/circrna/reference/chrI.fa"
+    mv "chrI.fa.1" "chrI.fa"
+
     mkdir -p STARIndex
 
     STAR \\

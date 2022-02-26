@@ -690,8 +690,8 @@ process GENE_ANNOTATION{
 
     shell:
     '''
-    gtfToGenePred -genePredExt -geneNameAsName2 ${gtf} ${gtf.baseName}.genepred
-    perl -alne '$"="\t";print "@F[11,0..9]"' ${gtf.baseName}.genepred > ${gtf.baseName}.txt
+    gtfToGenePred -genePredExt -geneNameAsName2 !{gtf} !{gtf.baseName}.genepred
+    perl -alne '$"="\t";print "@F[11,0..9]"' !{gtf.baseName}.genepred > !{gtf.baseName}.txt
     '''
 }
 

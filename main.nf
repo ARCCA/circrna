@@ -1783,6 +1783,7 @@ process STRINGTIE{
     script:
     """
     mkdir ${base}/
+    wget "https://raw.githubusercontent.com/nf-core/test-datasets/circrna/reference/chrI.gtf"
     stringtie $bam -e -G $gtf -C ${base}/${base}_cov.gtf -p ${task.cpus} -o ${base}/${base}.gtf -A ${base}/${base}_genes.list
     """
 }

@@ -479,6 +479,9 @@ process STAR_INDEX {
 
     script:
     """
+    wget "https://raw.githubusercontent.com/nf-core/test-datasets/circrna/reference/chrI.gtf"
+    mv "chrI.gtf.1" "${gtf}"
+
     mkdir -p STARIndex
 
     STAR \\
@@ -688,10 +691,13 @@ process GENE_ANNOTATION{
     output:
     file("${gtf.baseName}.txt") into ch_gene_txt
 
-    shell:
-    '''
-    echo hello > !{gtf.baseName}.txt 
-    '''
+    script:
+    """
+    wget "https://raw.githubusercontent.com/nf-core/test-datasets/circrna/reference/chrI.gtf"
+    mv "chrI.gtf.1" "${gtf}"
+    gtfToGenePred -genePredExt -geneNameAsName2 ${gtf} ${gtf.baseName}.genepred
+    perl -alne '\$"="\t";print "@F[11,0..9]"' ${gtf.baseName}.genepred > ${gtf.baseName}.txt
+    """
 }
 
 ch_gene = params.circexplorer2_annotation ? Channel.value(file(params.circexplorer2_annotation)) : ch_gene_txt

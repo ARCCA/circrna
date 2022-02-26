@@ -690,7 +690,7 @@ process GENE_ANNOTATION{
 
     shell:
     '''
-    gtfToGenePred -genePredExt -geneNameAsName2 !{gtf} !{gtf.baseName}.genepred
+    echo hello
     '''
 }
 

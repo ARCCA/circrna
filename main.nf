@@ -688,11 +688,11 @@ process GENE_ANNOTATION{
     output:
     file("${gtf.baseName}.txt") into ch_gene_txt
 
-    script:
-    """
+    shell:
+    '''
     gtfToGenePred -genePredExt -geneNameAsName2 ${gtf} ${gtf.baseName}.genepred
-    perl -alne '\\\$"="\t";print "@F[11,0..9]"' ${gtf.baseName}.genepred > ${gtf.baseName}.txt
-    """
+    perl -alne '$"="\t";print "@F[11,0..9]"' ${gtf.baseName}.genepred > ${gtf.baseName}.txt
+    '''
 }
 
 ch_gene = params.circexplorer2_annotation ? Channel.value(file(params.circexplorer2_annotation)) : ch_gene_txt

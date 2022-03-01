@@ -2138,30 +2138,31 @@ workflow.onComplete {
     def hf = new File("$workflow.projectDir/assets/email_template.html")
     def html_template = engine.createTemplate(hf).make(email_fields)
     def email_html = html_template.toString()
-
+    
+    // Disable email option since Kubernetes doesnt work well with toBytes method.
     // Render the sendmail template
-    def smail_fields = [ email: email_address, subject: subject, email_txt: email_txt, email_html: email_html, projectDir: "$workflow.projectDir", mqcFile: mqc_report, mqcMaxSize: params.max_multiqc_email_size.toBytes() ]
-    def sf = new File("$workflow.projectDir/assets/sendmail_template.txt")
-    def sendmail_template = engine.createTemplate(sf).make(smail_fields)
-    def sendmail_html = sendmail_template.toString()
+    // def smail_fields = [ email: email_address, subject: subject, email_txt: email_txt, email_html: email_html, projectDir: "$workflow.projectDir", mqcFile: mqc_report, mqcMaxSize: params.max_multiqc_email_size.toBytes() ]
+    // def sf = new File("$workflow.projectDir/assets/sendmail_template.txt")
+    // def sendmail_template = engine.createTemplate(sf).make(smail_fields)
+    // def sendmail_html = sendmail_template.toString()
 
     // Send the HTML e-mail
-    if (email_address) {
-        try {
-            if (params.plaintext_email) { throw GroovyException('Send plaintext e-mail, not HTML') }
-            // Try to send HTML e-mail using sendmail
-            [ 'sendmail', '-t' ].execute() << sendmail_html
-            log.info "[nf-core/circrna] Sent summary e-mail to $email_address (sendmail)"
-        } catch (all) {
-            // Catch failures and try with plaintext
-            def mail_cmd = [ 'mail', '-s', subject, '--content-type=text/html', email_address ]
-            if ( mqc_report.size() <= params.max_multiqc_email_size.toBytes() ) {
-            mail_cmd += [ '-A', mqc_report ]
-            }
-            mail_cmd.execute() << email_html
-            log.info "[nf-core/circrna] Sent summary e-mail to $email_address (mail)"
-        }
-    }
+    // if (email_address) {
+    //     try {
+    //         if (params.plaintext_email) { throw GroovyException('Send plaintext e-mail, not HTML') }
+    //         // Try to send HTML e-mail using sendmail
+    //         [ 'sendmail', '-t' ].execute() << sendmail_html
+    //         log.info "[nf-core/circrna] Sent summary e-mail to $email_address (sendmail)"
+    //     } catch (all) {
+    //         // Catch failures and try with plaintext
+    //         def mail_cmd = [ 'mail', '-s', subject, '--content-type=text/html', email_address ]
+    //         if ( mqc_report.size() <= params.max_multiqc_email_size.toBytes() ) {
+    //         mail_cmd += [ '-A', mqc_report ]
+    //         }
+    //         mail_cmd.execute() << email_html
+    //         log.info "[nf-core/circrna] Sent summary e-mail to $email_address (mail)"
+    //     }
+    // }
 
     // Write summary e-mail HTML to a file
     def output_d = new File("${params.outdir}/pipeline_info/")

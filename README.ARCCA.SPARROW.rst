@@ -116,6 +116,6 @@ everthing went as expected, exit and then copy any required files over to Hawk
 (check quota available on scratch and the size of files that need to be 
 transferred)::
 
-  $ kubectl data-access:data/hawk-username/out_dir /scratch/hawk-username
+  $ kubectl cp data-access:data/hawk-username/out_dir /scratch/hawk-username
 
 

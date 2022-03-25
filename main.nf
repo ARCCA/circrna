@@ -696,8 +696,8 @@ process GENE_ANNOTATION{
 
     script:
     """
-    wget "https://raw.githubusercontent.com/nf-core/test-datasets/circrna/reference/chrI.gtf"
-    mv "chrI.gtf.1" "${gtf}"
+    #wget "https://raw.githubusercontent.com/nf-core/test-datasets/circrna/reference/chrI.gtf"
+    #mv "chrI.gtf.1" "${gtf}"
     gtfToGenePred -genePredExt -geneNameAsName2 ${gtf} ${gtf.baseName}.genepred
     perl -alne '\$"="\t";print "@F[11,0..9]"' ${gtf.baseName}.genepred > ${gtf.baseName}.txt
     """
@@ -1793,7 +1793,7 @@ process STRINGTIE{
     """
     mkdir ${base}/
     wget "https://raw.githubusercontent.com/nf-core/test-datasets/circrna/reference/chrI.gtf"
-    mv "chrI.gtf.1" "chrI.gtf"
+    mv "chrI.gtf.1" "chrI.gtf"NNOTATION
     stringtie $bam -e -G $gtf -C ${base}/${base}_cov.gtf -p ${task.cpus} -o ${base}/${base}.gtf -A ${base}/${base}_genes.list
     """
 }

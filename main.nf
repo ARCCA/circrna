@@ -1293,7 +1293,7 @@ process FIND_ANCHORS{
     """
     bowtie2 -p ${task.cpus} --very-sensitive --mm -D 20 --score-min=C,-15,0 \\
     -x ${fasta.baseName} -q -1 ${fastq[0]} -2 ${fastq[1]} \\
-    | samtools view -hbuS - | samtools sort --threads ${task.cpus} -m 2G - > ${base}.bam
+    | samtools view -hbuS - | samtools sort --threads ${task.cpus} -m 1G - > ${base}.bam
 
     samtools view -hf 4 ${base}.bam | samtools view -Sb - > ${base}_unmapped.bam
 
